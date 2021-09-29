@@ -189,11 +189,13 @@ def locQueens():
         if (pcmd == "kidnap him"):
             print ("Security guards are coming to catch you.")
             print ("You were kicked out of school.")
+            input("Press enter to go back >")
             locQueens() #Try again
 
         elif (pcmd == "talk to him"):
             print (" 'Hey, Spider man. Please help me! Someone took my brother.' ")
             print (" 'Okay, but I can't beat him by myself. We have to find someone else.' ")
+            input(">")
             print (" You have two options. Where do you want to go with Spider-man? ")
             player["friends"].append("spiderman")
             print (" [ villain's house, long island, store ]  ")
@@ -240,12 +242,25 @@ def locQueens():
     elif (pcmd == "library"):
         print ("You are going to the library...")
         print (". . . ")
+        input(">")
         print (" ----- 'CLOSED' ----- ")
         print (" Oops, the library is closed. You should go back. ")
         pcmd = input("press enter to go back >")
         locQueens()
 
-    
+def locStore(): 
+    print ("You are going to the store...")
+    print (". . . ")
+    input (">")
+    print (" There is a gun. Do you want to buy it? ")
+    print ("> [ yes , no ] ")
+    pcmd = input(">")
+
+    if (pcmd == "yes"):
+        player["items"].append("gun")
+        locVillain()
+    if (pcmd ==  "no"):
+        locVillain()
 
 
 def locLongisland():
@@ -290,10 +305,11 @@ def locVillain():
         printGraphic("castle")
         print ("You arrived at the door of the villain's castle.")
         print ("The villain is coming to you!!")
+        input(">")
         print ("Villain: I am gonna kill you...!")
         input("Press enter to fight>")
 
-        if("gun" in player["items"]):
+        if("gun" in player["items"]) and ("ironman" in player["friends"]):
             print ("You consider your options.")
             print ("options: gun, spider man, iron man")
             pcmd = input(">")
@@ -308,8 +324,9 @@ def locVillain():
 
                 if(pcmd == "yes"):
                     print ("Who wants to help you?")
+
                     if("ironman" in player["friends"]):
-                        print ("spider man, iron man")
+                        print (" [ spider man, iron man ]")
                         pcmd = input(">")
 
                         if (pcmd == "spider man"):
@@ -317,27 +334,84 @@ def locVillain():
                             print ("You shot the villain again!")
                             pcmd = input(">")
                             gameWin()
-                        
+
                         if (pcmd == "iron man"):
                             print ("Iron-Man killed the villain by shooting a beam from his palm. ")
                             pcmd = input(">")
                             gameWin()
 
-                    else:
-                        print ("Spider-Man tied the villain's body with a spider web.")
-                        print ("You shot the villain again!")
-                        pcmd = input(">")
-                        gameWin()
-
                 if(pcmd == "no"):
                     print("...")
                     gameOver()
-        else:
+
+            if (pcmd == "spider man"):
+                print ("Spider-Man tied the villain's body with a spider web.")
+                print ("You shot the villain again!")
+                pcmd = input(">")
+                gameWin()
+                        
+            if (pcmd == "iron man"):
+                print ("Iron-Man killed the villain by shooting a beam from his palm. ")
+                pcmd = input(">")
+                gameWin()
+
+        elif not("gun" in player["items"]) and not("ironman" in player["friends"]):
             print (" Spider-Man has already been attacked. He cannot move now! ")
             print (" The villain is trying to kill you, but you have no weapons. ")
             print (" . . . ")
+            print (" [ keep fighting, run away ] ")
+            pcmd = input(">")
+            
+            if (pcmd == "kepp fighting"):
+                gameOver()
+
+            elif (pcmd == "run away"):
+                print ("You are running away from him.")
+                print ("You need to buy a gun to beat him.")
+                print ("Do you want to go to a store?")
+                print (" [ yes, no ] ")
+                pcmd = input(">")
+
+                if (pcmd == "yes"):
+                    locStore()
+                if (pcmd == "no"):
+                    gameOver()
+        
+        elif not("gun" in player["items"]) and ("ironman" in player["friends"]):
+            print ("You consider your options.")
+            print ("options: spider man, iron man")
+            pcmd = input(">")
+
+            if (pcmd == "spider man"):
+                print ("Spider-Man tied the villain's body with a spider web.")
+                print ("You shot the villain again!")
+                pcmd = input(">")
+                gameWin()
+                        
+            elif (pcmd == "iron man"):
+                print ("Iron-Man killed the villain by shooting a beam from his palm. ")
+                pcmd = input(">")
+                gameWin()
+
+        elif ("gun" in player["items"]) and not("ironman" in player["friends"]):
+            print ("You shot the villain. ")
+            print ("But it seems too weak to kill the villain. Ask Spider-man for help!")
             input(">")
-            gameOver()
+            print ("Do you need help?")
+            print (" [ yes, no ] ")
+            pcmd = input(">")
+
+            if(pcmd == "yes"):
+                print ("Spider-Man tied the villain's body with a spider web.")
+                print ("You shot the villain again!")
+                pcmd = input(">")
+                gameWin()
+
+
+
+        
+
+
 
 def main():
     printGraphic("title") # call the function to print an image
