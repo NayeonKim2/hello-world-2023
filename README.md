@@ -4,11 +4,11 @@
 # week 1
 (Explanation of your homework here)
 
-# week 2 
+# week 3 
 This is an adventure game named “HELP ME, AVENGERS”.
 You should go find someone to help him save your brother.
 
-# week 3
+# week 4
 The name of this work is "You."
 
 There are a lot of roses which have all different colors. Their shapes are all the same, but they have their own colors and positions.
